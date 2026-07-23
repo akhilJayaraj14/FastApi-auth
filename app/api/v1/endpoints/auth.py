@@ -64,6 +64,25 @@ async def login_json(
     result = await db.execute(select(User).where(User.email == credentials.email.lower()))
     user = result.scalars().first()
 
+    # Auto-provision demo user if hitting a new serverless container
+    if not user and credentials.email.lower() == "demo@fastapi.dev":
+        user = User(
+            id=1,
+            email="demo@fastapi.dev",
+            full_name="Demo Showcase User",
+            hashed_password=get_password_hash("secret123"),
+            is_active=True,
+            is_superuser=False
+        )
+        try:
+            db.add(user)
+            await db.commit()
+            await db.refresh(user)
+        except Exception:
+            await db.rollback()
+            res = await db.execute(select(User).where(User.email == "demo@fastapi.dev"))
+            user = res.scalars().first()
+
     if not user or not verify_password(credentials.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -106,6 +125,24 @@ async def login_swagger(
     """
     result = await db.execute(select(User).where(User.email == form_data.username.lower()))
     user = result.scalars().first()
+
+    if not user and form_data.username.lower() == "demo@fastapi.dev":
+        user = User(
+            id=1,
+            email="demo@fastapi.dev",
+            full_name="Demo Showcase User",
+            hashed_password=get_password_hash("secret123"),
+            is_active=True,
+            is_superuser=False
+        )
+        try:
+            db.add(user)
+            await db.commit()
+            await db.refresh(user)
+        except Exception:
+            await db.rollback()
+            res = await db.execute(select(User).where(User.email == "demo@fastapi.dev"))
+            user = res.scalars().first()
 
     if not user or not verify_password(form_data.password, user.hashed_password):
         raise HTTPException(
