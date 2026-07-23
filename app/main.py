@@ -52,8 +52,11 @@ _db_initialized = False
 async def ensure_db_initialized(request: Request, call_next):
     global _db_initialized
     if not _db_initialized:
-        await init_db()
-        _db_initialized = True
+        try:
+            await init_db()
+            _db_initialized = True
+        except Exception as err:
+            print(f"Serverless DB init notice: {err}")
     return await call_next(request)
 
 # Mount Static Files & Jinja2 Templates
