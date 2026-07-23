@@ -10,10 +10,8 @@ async function initDashboard() {
     const token = getStoredToken();
     if (token) {
         renderTokenInfo(token);
-    } else {
-        // Try fetching user from cookie session
-        tryFetchProfile();
     }
+    tryFetchProfile();
 }
 
 async function tryFetchProfile() {
@@ -25,15 +23,13 @@ async function tryFetchProfile() {
 
     try {
         const response = await fetch('/api/v1/auth/me', { headers });
-        if (!response.ok) {
-            // Not authenticated, redirect to login
+        if (response.ok) {
+            const user = await response.json();
+            updateUIUser(user);
+            fetchStats(headers);
+        } else if (!token && window.location.pathname === '/dashboard') {
             window.location.href = '/login';
-            return;
         }
-
-        const user = await response.json();
-        updateUIUser(user);
-        fetchStats(headers);
     } catch (err) {
         showToast('Error connecting to backend server', 'error');
     }
@@ -101,15 +97,26 @@ async function testProtectedEndpoint(endpoint) {
         headers['Authorization'] = `Bearer ${token}`;
     }
 
+    const outputContainer = document.getElementById('api-tester-card') || document.getElementById('api-tester-output');
+    if (outputContainer) {
+        outputContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
     const outputElem = document.getElementById('api-tester-output');
-    outputElem.innerText = 'Sending Request...';
+    if (outputElem) {
+        outputElem.innerText = 'Sending Request...';
+    }
 
     try {
         const res = await fetch(endpoint, { headers });
         const statusText = `HTTP ${res.status} ${res.statusText}\n`;
         const data = await res.json();
-        outputElem.innerText = statusText + JSON.stringify(data, null, 2);
+        if (outputElem) {
+            outputElem.innerText = statusText + JSON.stringify(data, null, 2);
+        }
     } catch (err) {
-        outputElem.innerText = 'Request Failed: ' + err.message;
+        if (outputElem) {
+            outputElem.innerText = 'Request Failed: ' + err.message;
+        }
     }
 }
