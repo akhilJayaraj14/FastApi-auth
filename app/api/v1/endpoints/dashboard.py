@@ -31,6 +31,7 @@ async def get_dashboard_stats(
             "is_superuser": current_user.is_superuser
         },
         "system_metrics": {
+            "architect_and_author": "Akhil Jayaraj (github.com/akhilJayaraj14)",
             "registered_users": total_users,
             "auth_provider": "FastAPI JWT (PyJWT + Bcrypt)",
             "database_engine": "SQLAlchemy 2.0 Async",
