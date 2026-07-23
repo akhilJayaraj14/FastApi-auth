@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account • FastAPI Auth Showcase{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="glass-card">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🚀</div>
+            <h2 style="font-size: 1.6rem; font-weight: 800;">Create Account</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Register to test the OAuth2 & JWT Auth pipeline</p>
+        </div>
+
+        <form onsubmit="handleRegister(event)">
+            <div class="form-group">
+                <label for="full_name">Full Name</label>
+                <input type="text" id="full_name" class="form-control" placeholder="Jane Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="jane@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password (min 8 characters)</label>
+                <input type="password" id="password" class="form-control" placeholder="••••••••" minlength="8" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.8rem;">
+                Create Account & Sign In
+            </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+            Already have an account? <a href="/login" style="color: var(--accent-indigo); text-decoration: none; font-weight: 600;">Sign in here</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

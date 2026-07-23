@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In • FastAPI Auth Showcase{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="glass-card">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔑</div>
+            <h2 style="font-size: 1.6rem; font-weight: 800;">Welcome Back</h2>
+            <p style="color: var(--text-muted); font-size: 0.9rem;">Sign in to access your JWT token dashboard</p>
+        </div>
+
+        <form onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="user@example.com" required value="demo@fastapi.dev">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="••••••••" required value="secret123">
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem; padding: 0.8rem;">
+                Sign In
+            </button>
+        </form>
+
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+            Don't have an account? <a href="/register" style="color: var(--accent-indigo); text-decoration: none; font-weight: 600;">Register here</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

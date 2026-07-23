@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}User Dashboard • JWT Token & API Inspector{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+    <div>
+        <h1 style="font-size: 2rem; font-weight: 800; display: flex; align-items: center; gap: 0.75rem;">
+            <span>Interactive User Dashboard</span>
+            <span class="badge badge-success">Authenticated Session</span>
+        </h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">Test protected routes & inspect JWT authentication claims live.</p>
+    </div>
+    
+    <div style="display: flex; gap: 0.75rem;">
+        <button onclick="testProtectedEndpoint('/api/v1/dashboard/secret-payload')" class="btn btn-primary">
+            🔒 Call Protected API
+        </button>
+        <button onclick="handleLogout()" class="btn btn-secondary">
+            Logout
+        </button>
+    </div>
+</div>
+
+<div class="grid-2" style="margin-bottom: 2rem;">
+    <!-- Profile & Session Card -->
+    <div class="glass-card">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>👤</span>
+            <span>Profile Details</span>
+        </h3>
+        <div style="display: flex; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem;">
+            <div id="user-avatar" style="width: 54px; height: 54px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple)); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: white; border: 2px solid var(--glass-border-hover);">
+                U
+            </div>
+            <div>
+                <div id="user-name" style="font-size: 1.15rem; font-weight: 700;">Loading Profile...</div>
+                <div id="user-email" style="color: var(--text-muted); font-size: 0.9rem;">...</div>
+            </div>
+        </div>
+
+        <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-sm); padding: 1rem; border: 1px solid var(--glass-border);">
+            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); margin-bottom: 0.5rem;">Live System Metrics (/api/v1/dashboard/stats)</div>
+            <pre id="sys-stats-json" class="code-block" style="max-height: 180px;">Fetching backend stats...</pre>
+        </div>
+    </div>
+
+    <!-- Live JWT Inspector -->
+    <div class="glass-card">
+        <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem;">
+            <span>🔍</span>
+            <span>Live JWT Token Inspector</span>
+        </h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1rem;">
+            Decoded bearer token claims (Header, Payload, Expiration) stored in local memory.
+        </p>
+        
+        <div style="margin-bottom: 1rem;">
+            <div style="font-size: 0.8rem; font-weight: 600; color: var(--accent-cyan); margin-bottom: 0.3rem;">Token Expiration</div>
+            <div id="jwt-exp-countdown" class="badge badge-info" style="font-size: 0.85rem;">Calculating...</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div>
+                <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.25rem;">JWT Header</div>
+                <pre id="jwt-header-json" class="code-block" style="padding: 0.6rem;">{}</pre>
+            </div>
+            <div>
+                <div style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 0.25rem;">JWT Payload Claims</div>
+                <pre id="jwt-payload-json" class="code-block" style="padding: 0.6rem;">{}</pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Interactive API Tester -->
+<div class="glass-card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+        <h3 style="font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; gap: 0.5rem;">
+            <span>🧪</span>
+            <span>Interactive API Request Tester</span>
+        </h3>
+        <div style="display: flex; gap: 0.5rem;">
+            <button onclick="testProtectedEndpoint('/api/v1/auth/me')" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                GET /api/v1/auth/me
+            </button>
+            <button onclick="testProtectedEndpoint('/api/v1/dashboard/stats')" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                GET /api/v1/dashboard/stats
+            </button>
+            <button onclick="testProtectedEndpoint('/api/v1/dashboard/secret-payload')" class="btn btn-secondary" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">
+                GET /api/v1/dashboard/secret-payload
+            </button>
+        </div>
+    </div>
+
+    <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">
+        Click any endpoint above to execute a real HTTP fetch request with automatic <code>Authorization: Bearer &lt;token&gt;</code> header injection.
+    </p>
+
+    <pre id="api-tester-output" class="code-block" style="min-height: 140px;">Select an endpoint above to see the real-time response payload...</pre>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/dashboard.js"></script>
+{% endblock %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FastAPI Authentication & User Management Showcase{% endblock %}</title>
+    <meta name="description" content="Production-grade FastAPI authentication system featuring JWT tokens, Bcrypt password hashing, SQLAlchemy 2.0 async ORM, and modern glassmorphic web UI.">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+    <!-- Background Animated Blobs -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <a href="/" class="nav-brand">
+            <span style="font-size: 1.5rem;">⚡</span>
+            <span>FastAPI Auth</span>
+            <span class="brand-badge">v1.0</span>
+        </a>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="/">Home</a></li>
+                <li><a href="/docs" target="_blank">Swagger API</a></li>
+                <li><a href="/guide">Architecture Guide</a></li>
+                {% if user %}
+                    <li><a href="/dashboard">Dashboard</a></li>
+                    <li><button onclick="handleLogout()" class="btn btn-secondary" style="padding: 0.4rem 1rem;">Logout</button></li>
+                {% else %}
+                    <li><a href="/login">Sign In</a></li>
+                    <li><a href="/register" class="btn btn-primary" style="padding: 0.4rem 1.1rem;">Get Started</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Content Body -->
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Global Footer -->
+    <footer>
+        <p>Built with ⚡ FastAPI, Pydantic v2, SQLAlchemy 2.0 & JWT Security • Designed for LinkedIn Showcase</p>
+    </footer>
+
+    <script src="/static/js/auth.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}FastAPI Production Auth Showcase • Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(99, 102, 241, 0.12); border: 1px solid rgba(99, 102, 241, 0.3); padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.85rem; color: #a5b4fc; margin-bottom: 1.5rem; font-weight: 500;">
+        <span>🚀 Production Ready Architecture</span>
+        <span>•</span>
+        <span>FastAPI + SQLite/PostgreSQL</span>
+    </div>
+    <h1 class="hero-title">Robust Python Authentication & JWT Security System</h1>
+    <p class="hero-subtitle">
+        A standard Python production-grade FastAPI application engineered with OAuth2 Bearer security, async SQLAlchemy 2.0 ORM, Bcrypt password hashing, pytest test suite, and a modern glassmorphic dashboard interface.
+    </p>
+
+    <div class="hero-actions">
+        <a href="/login" class="btn btn-primary" style="padding: 0.85rem 2rem; font-size: 1.05rem;">
+            <span>Try Live Demo</span>
+            <span>→</span>
+        </a>
+        <a href="/guide" class="btn btn-secondary" style="padding: 0.85rem 1.8rem; font-size: 1.05rem;">
+            <span>View Architecture</span>
+        </a>
+        <a href="/docs" target="_blank" class="btn btn-outline" style="padding: 0.85rem 1.8rem; font-size: 1.05rem;">
+            <span>Interactive API Specs</span>
+        </a>
+    </div>
+</section>
+
+<section style="margin-top: 3rem;">
+    <h2 style="text-align: center; margin-bottom: 2rem; font-size: 1.8rem; font-weight: 700;">Key Technical Highlights</h2>
+    
+    <div class="grid-3">
+        <div class="glass-card">
+            <div style="font-size: 2.2rem; margin-bottom: 1rem;">🔐</div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">OAuth2 & JWT Token Auth</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+                Dual-token architecture featuring signed Access Tokens and Refresh Tokens using PyJWT algorithms (HS256) and HTTP-Only cookie / Header authorization.
+            </p>
+        </div>
+
+        <div class="glass-card">
+            <div style="font-size: 2.2rem; margin-bottom: 1rem;">⚡</div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Async SQLAlchemy 2.0</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+                Built using Python's asyncio event loop, declarative Mapped type hints, connection pooling, and seamless SQLite/PostgreSQL database compatibility.
+            </p>
+        </div>
+
+        <div class="glass-card">
+            <div style="font-size: 2.2rem; margin-bottom: 1rem;">🧪</div>
+            <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem;">Comprehensive Pytest Suite</h3>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">
+                Fully automated integration & unit tests covering user creation, password verification, token refresh, and dependency injection guards.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="glass-card" style="margin-top: 4rem; text-align: center; background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.05)); border-color: rgba(99, 102, 241, 0.25);">
+    <h2 style="font-size: 1.75rem; font-weight: 800; margin-bottom: 0.75rem;">Ready to showcase on LinkedIn?</h2>
+    <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 1.5rem;">
+        Complete with Dockerfile, Render deployment config (`render.yaml`), and clean codebase organized according to standard Python project guidelines.
+    </p>
+    <a href="/register" class="btn btn-primary" style="padding: 0.75rem 1.8rem;">Create Test Account</a>
+</section>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Architecture & Design Guide • FastAPI Showcase{% endblock %}
+
+{% block content %}
+<section class="glass-card" style="margin-bottom: 2rem;">
+    <h1 style="font-size: 2.2rem; font-weight: 800; margin-bottom: 0.75rem;">System Architecture & Design Blueprint</h1>
+    <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.5rem;">
+        This document outlines the software engineering patterns and security protocols implemented in this FastAPI repository.
+    </p>
+
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <span class="badge badge-success">Python 3.10+</span>
+        <span class="badge badge-info">FastAPI 0.110</span>
+        <span class="badge badge-purple">SQLAlchemy 2.0 Async</span>
+        <span class="badge badge-info">PyJWT HS256</span>
+        <span class="badge badge-success">Bcrypt Encryption</span>
+    </div>
+</section>
+
+<div class="grid-2">
+    <div class="glass-card">
+        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-indigo);">1. Directory Layout & Separation of Concerns</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+            Follows official FastAPI & standard Python project structure guidelines to ensure clean maintainability and scalability:
+        </p>
+        <ul style="color: var(--text-main); font-size: 0.9rem; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><code>app/core/</code>: Configuration (BaseSettings), database session factory, security primitives.</li>
+            <li><code>app/models/</code>: SQLAlchemy ORM database models using modern Mapped type annotations.</li>
+            <li><code>app/schemas/</code>: Pydantic v2 validation models for input serialization and output responses.</li>
+            <li><code>app/api/v1/</code>: Versioned API endpoint routers and dependency injection utilities (<code>get_current_user</code>).</li>
+            <li><code>app/templates/ & static/</code>: Responsive glassmorphic frontend UI templates.</li>
+        </ul>
+    </div>
+
+    <div class="glass-card">
+        <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-cyan);">2. Authentication & Authorization Flow</h3>
+        <ol style="color: var(--text-main); font-size: 0.9rem; padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
+            <li><strong>Password Hashing:</strong> User passwords are encrypted using one-way <code>Bcrypt</code> salt hashes via Passlib.</li>
+            <li><strong>OAuth2 Password Bearer:</strong> Swagger UI and external clients authenticate via <code>/api/v1/auth/login</code>.</li>
+            <li><strong>Dual Token Security:</strong> Short-lived Access Tokens (60 min) for requests and Refresh Tokens (7 days) for session maintenance.</li>
+            <li><strong>Cookie & Header Interceptors:</strong> Native support for both HTTP Bearer headers and HTTP-only cookies.</li>
+        </ol>
+    </div>
+</div>
+
+<section class="glass-card" style="margin-top: 2rem;">
+    <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1rem;">3. Deployment & DevOps Readiness</h3>
+    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+        This repository is pre-configured for instant automated deployment to cloud platforms:
+    </p>
+
+    <div class="grid-2">
+        <div>
+            <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Containerization (Docker)</h4>
+            <pre class="code-block" style="font-size: 0.8rem;">docker build -t fastapi-auth-app .
+docker run -p 8000:8000 fastapi-auth-app</pre>
+        </div>
+        <div>
+            <h4 style="font-weight: 600; margin-bottom: 0.5rem;">Render Cloud Deployment (`render.yaml`)</h4>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">
+                Connect this GitHub repository to Render for automatic zero-config builds using Uvicorn.
+            </p>
+        </div>
+    </div>
+</section>
+{% endblock %}
