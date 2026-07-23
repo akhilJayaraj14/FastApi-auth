@@ -88,7 +88,7 @@ def get_user_from_cookies(request: Request):
 @app.get("/", response_class=HTMLResponse)
 async def root_page(request: Request):
     user = get_user_from_cookies(request)
-    return templates.TemplateResponse("index.html", {"request": request, "user": user})
+    return templates.TemplateResponse(request=request, name="index.html", context={"user": user})
 
 
 @app.get("/login", response_class=HTMLResponse)
@@ -96,7 +96,7 @@ async def login_page(request: Request):
     user = get_user_from_cookies(request)
     if user:
         return RedirectResponse(url="/dashboard")
-    return templates.TemplateResponse("login.html", {"request": request, "user": None})
+    return templates.TemplateResponse(request=request, name="login.html", context={"user": None})
 
 
 @app.get("/register", response_class=HTMLResponse)
@@ -104,19 +104,19 @@ async def register_page(request: Request):
     user = get_user_from_cookies(request)
     if user:
         return RedirectResponse(url="/dashboard")
-    return templates.TemplateResponse("register.html", {"request": request, "user": None})
+    return templates.TemplateResponse(request=request, name="register.html", context={"user": None})
 
 
 @app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request):
     user = get_user_from_cookies(request)
-    return templates.TemplateResponse("dashboard.html", {"request": request, "user": user})
+    return templates.TemplateResponse(request=request, name="dashboard.html", context={"user": user})
 
 
 @app.get("/guide", response_class=HTMLResponse)
 async def guide_page(request: Request):
     user = get_user_from_cookies(request)
-    return templates.TemplateResponse("docs_guide.html", {"request": request, "user": user})
+    return templates.TemplateResponse(request=request, name="docs_guide.html", context={"user": user})
 
 
 @app.get("/health")
